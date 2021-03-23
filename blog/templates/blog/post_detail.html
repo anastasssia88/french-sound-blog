@@ -1,0 +1,24 @@
+{% extends "blog/base.html" %}
+{% block content %}
+	
+	
+		
+		<div class="box-element p-4 mb-4">
+			<a class="btn btn-outline mb-4" href="{% url 'blog-home'%}">&#x2190; Go Back</a>
+			<h2>{{ post.title }}</h2>
+			<a href="{% url 'blog-category-posts' post.category.name %}"><h4>{{ post.category }}</h4></a>
+			<img class="img-fluid" src="{{ post.hero_image.url}}">
+
+			<div class="mt-2">
+				<a href="{% url 'blog-user-posts' post.author.username %}"><h4 style="display: inline;">{{ post.author }}</h4></a>
+				<p style="display: inline;" class="text-muted font-italic">on {{ post.date_posted|date:"F d, Y" }}</p>
+			</div>
+			<hr>
+
+			<p>{{ post.content|safe }}</p>
+
+		</div>
+
+
+
+{% endblock content %}

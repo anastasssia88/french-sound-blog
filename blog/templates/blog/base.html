@@ -1,0 +1,197 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs -->
+    <meta charset="utf-8">
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>FrenchSound</title>
+    {% endif %}
+
+    <!-- mobile specific metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Montserrat:wght@200;300&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+
+
+
+
+
+
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header>
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-blue">
+          <div class="container">
+
+            <!--<a class="navbar-brand" href="#">
+              <img src="{% static 'tab-logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">-->
+            </a>
+            <a class="navbar-brand" href="{% url 'blog-home' %}">FrenchSound</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'blog-home' %}">Blog <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categories
+                  </a>
+
+
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/blog/category/Pronunciation/">Pronunciation</a>
+                    <a class="dropdown-item" href="/blog/category/Grammar/">Grammar</a>
+                    <a class="dropdown-item" href="/blog/category/Vocabulary/">Vocabulary</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/blog/category/Tips&Tricks/">Tips&Tricks</a>
+                  </div>
+                </li>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            </div>
+
+          </div>
+        </nav>
+    </header>
+
+    <!-- LAYOUT -->
+    <div class="container container-fluid">
+        <div class="row">
+            
+            <!-- dynamic content -->
+            <div class="col-sm-7 mt-5 mx-4">
+                <section>
+                    {% block content%}
+
+                    {% endblock content%}
+                </section>
+            </div>
+
+            <!-- sidebar -->
+            <div class="col-sm-4 mt-5 px-5">
+
+                <div>
+                    <img src="{% static 'linguanastya-sidebar.jpg' %}" class='img-fluid sidebar-img'>
+                    <h3 class="text-center">Anastasia</h3>
+                    <h4 class="text-center">linguist&trilingual blogger</h4>
+                    <p class="text-center">Coucou les amis! My name is Anastasia. I am a certified linguist and a French pronunciation coach with a DALC C1 diploma. French pronunciation is my passion! So, I teach how to sound French and speak it with confidence. Subscribe to my Youtube channel and Instagram, so you don’t miss out on my free lessons</p>
+                </div>
+
+
+                <div class="mt-5">
+                    <h3>Must read</h3>
+                    <hr>
+                    <!-- FLEX BOX must-read posts -->
+                    {% for post in must_read%} 
+                     <div class="sidebar-item grid-container">
+                            
+                            <div class="grid-item grid-item1">
+                              <img class="thumbnail thumbnail-custom img-fluid" src="{{post.hero_image.url}}">
+                            </div>
+
+                            <div class="grid-item grid-item2">
+                              <h5>{{ post.title }}</h5>
+                              <a class="btn-link" href="{% url 'blog-post-detail' post.id %}">Read more</a>
+                            </div>
+                                               
+                      </div>
+                    {% endfor %}
+                </div>
+
+
+                <div class="mt-5">
+
+                        <h3>Subscribe</h3>
+                        <hr>
+
+                    <div class="post py-4 px-4">
+                        <p>Join my mailing list today! I write rarely, but only the best content.</p>
+
+
+                        <form action="#!">
+                            <!-- Name -->
+                            <div class="md-form mt-3">
+                                <input type="text" id="subscription_name" class="form-control">
+                                <label for="subscription_name" class="text-muted">Name</label>
+                            </div>
+
+                            <!-- E-mai -->
+                            <div class="md-form">
+                                <input type="email" id="subscription_email" class="form-control">
+                                <label for="subscription_email" class="text-muted">E-mail</label>
+                            </div>
+
+                            <!-- Sign in button -->
+                            <div class="">
+                                <button class="btn btn-outline btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Sign in</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="mt-5">
+                    <h3>My favorites</h3>
+                    <hr>
+                    <!-- FLEX BOX must-read posts -->
+                    {% for post in favorite%} 
+                     <div class="sidebar-item grid-container">
+                            
+                            <div class="grid-item grid-item1">
+                              <img class="thumbnail thumbnail-custom img-fluid" src="{{post.hero_image.url}}">
+                            </div>
+
+                            <div class="grid-item grid-item2">
+                              <h5>{{ post.title }}</h5>
+                              <a class="btn-link" href="{% url 'blog-post-detail' post.id %}">Read more</a>
+                            </div>
+                                               
+                      </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- FOOTER -->
+    <footer class="page-footer font-small blue">
+
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="https://mdbootstrap.com/" class="footer-link"> FrenchSound</a>
+      </div>
+      <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
